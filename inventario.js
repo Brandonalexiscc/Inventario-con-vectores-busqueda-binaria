@@ -8,7 +8,7 @@ export default class Inventario{
         console.log(this.productos);
     }
 
-    mostrarProductoBusquedaBinaria(){
+    mostrarProducto(){
         let cadena = '';
         for (let i = 0; i < this.productos.length; i++){
             cadena += `<div class="card text-center  Tb.4">
@@ -41,23 +41,26 @@ export default class Inventario{
         return producto;
     }
     
+    //búsqueda binaria 
     buscarPorCodigo(codigo) {
-        let cadena = '';
-        for (let i = 0; i <= this.productos.length; i++) {
-            if (this.productos[i])
-                if (codigo === this.productos[i].codigo) {
-                    cadena += `<div class="card text-center  Tb.4">
-                    <div class="card.body">
-                        <strong>Producto</strong>: ${this.productos[i].nombre}&nbsp;
-                        <strong>Codigo</strong>: ${this.productos[i].codigo}&nbsp;
-                        <strong>Cantidad</strong>: ${this.productos[i].cantidad}&nbsp;
-                        <strong>Costo</strong>: ${this.productos[i].costo}
-                    </div>
-                    </div>
-            `;
+        let producto = "";
+        let right = this.productos.length - 1;
+        let left = 0;
+        let middle = Math.floor((right + left) / 2);
+        while (left <= right){
+            if (this.productos[middle].codigo === codigo) {
+                producto = `Producto: ${this.productos[middle].nombre} 
+                Código: ${this.productos[middle].codigo} 
+                Cantidad: ${this.productos[middle].cantidad} 
+                Costo: ${this.productos[middle].costo}`;
             }
+            if (this.productos[middle].codigo < codigo) {
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+            middle = Math.floor((right + left) / 2);
         }
-        return cadena;
     }
 
     listaProductos(){
@@ -76,25 +79,19 @@ export default class Inventario{
         return cadena;
     }
 
-    listarProductosOrdenInverso(left, right, cadena) {
+    listarProductosOrdenInverso() {
         let cadena = '';
         for (let i = this.productos.length; i >= 0; i--) {
-            if(left <= right){
-                cadena += `<div class="card text-center Tb.4">`
-                cadena += `<div class="card-body">`
-                cadena += `<strong>Producto</strong>: ${this.productos[i].nombre}&nbsp;`
-                cadena += `<strong>Codigo</strong>: ${this.productos[i].codigo}&nbsp;`
-                cadena += `<strong>Cantidad</strong>: ${this.productos[i].cantidad}&nbsp;`
-                cadena += `<strong>Costo</strong>: ${this.productos[i].costo}`
-                cadena += `</div>`
-                cadena += `</div>`
-                const middle = Math.floor((left + right) / 2);
-                this.listarProductosOrdenInverso(left, middle, cadena);
-                this.listarProductosOrdenInverso(middle + 1, right, cadena);
-                if(this.productos[middle] > this.productos[middle + 1]){
-                    this.swap(this.productos, middle, middle +1);
-                }
-            }    
+            if (this.productos[i])
+                cadena += `<div class="card text-center  Tb.4">
+                <div class="card.body">
+                    <strong>Producto</strong>: ${this.productos[i].nombre}&nbsp;
+                    <strong>Codigo</strong>: ${this.productos[i].codigo}&nbsp;
+                    <strong>Cantidad</strong>: ${this.productos[i].cantidad}&nbsp;
+                    <strong>Costo</strong>: ${this.productos[i].costo};
+                </div>
+                </div>
+            `;
         }
         return cadena;
     }

@@ -12,7 +12,7 @@ document.getElementById('agregar').addEventListener('click', () =>{
     const producto = new Productos(nombre, codigo, cantidad, costo);
 
     inventario.agregarProducto(producto);
-    let elemento = inventario.mostrarProductoBusquedaBinaria();
+    let elemento = inventario.mostrarProducto();
 
     let listaProducto = document.getElementById('producto-list');
     listaProducto.innerHTML = elemento;
@@ -23,7 +23,7 @@ document.getElementById('eliminar-Codigo').addEventListener('click', () => {
     const codigoEliminar = document.getElementById('codigoEliminar').value;
         
     inventario.eliminarPorCodigo(codigoEliminar);
-    inventario.mostrarProductoBusquedaBinaria();
+    inventario.mostrarProducto();
     
 });
 
