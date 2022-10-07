@@ -61,6 +61,7 @@ export default class Inventario{
             }
             middle = Math.floor((right + left) / 2);
         }
+        return producto;
     }
 
     listaProductos(){
